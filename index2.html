@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+  <title>Object Control</title>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script>
+  // Canvas와 context 생성
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // 오브젝트 초기 위치 및 속도 설정
+  let object = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    speed: 5
+  };
+
+  // 방향키 이벤트 핸들링
+  window.addEventListener('keydown', handleKeyPress);
+
+  function handleKeyPress(event) {
+    switch (event.key) {
+      case 'ArrowLeft':
+        object.x -= object.speed;
+        break;
+      case 'ArrowRight':
+        object.x += object.speed;
+        break;
+    }
+
+    // Canvas 업데이트
+    updateCanvas();
+  }
+
+  function updateCanvas() {
+    // Canvas 초기화
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 오브젝트 그리기
+    ctx.beginPath();
+    ctx.arc(object.x, object.y, 20, 0, Math.PI * 2);
+    ctx.fillStyle = 'blue';
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  // 초기 Canvas 업데이트
+  updateCanvas();
+</script>
+
+</body>
+</html>
